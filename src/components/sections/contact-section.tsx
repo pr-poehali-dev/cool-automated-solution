@@ -1,34 +1,8 @@
 import { useReveal } from "@/hooks/use-reveal"
-import { useState, type FormEvent } from "react"
-import { MagneticButton } from "@/components/magnetic-button"
 import Icon from "@/components/ui/icon"
 
 export function ContactSection() {
   const { ref, isVisible } = useReveal(0.3)
-  const [formData, setFormData] = useState({ name: "", email: "", message: "" })
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitSuccess, setSubmitSuccess] = useState(false)
-
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-
-    // Basic validation
-    if (!formData.name || !formData.email || !formData.message) {
-      return
-    }
-
-    setIsSubmitting(true)
-
-    // Simulate form submission (replace with actual API call later)
-    await new Promise((resolve) => setTimeout(resolve, 1500))
-
-    setIsSubmitting(false)
-    setSubmitSuccess(true)
-    setFormData({ name: "", email: "", message: "" })
-
-    // Reset success message after 5 seconds
-    setTimeout(() => setSubmitSuccess(false), 5000)
-  }
 
   return (
     <section
@@ -39,7 +13,7 @@ export function ContactSection() {
         <div className="grid gap-8 md:grid-cols-[1.2fr_1fr] md:gap-16 lg:gap-24">
           <div className="flex flex-col justify-center">
             <div
-              className={`mb-6 transition-all duration-700 md:mb-12 ${
+              className={`mb-6 transition-all duration-700 md:mb-10 ${
                 isVisible ? "translate-x-0 opacity-100" : "-translate-x-12 opacity-0"
               }`}
             >
@@ -51,7 +25,8 @@ export function ContactSection() {
               <p className="font-mono text-xs text-foreground/60 md:text-base">/ Оценим бесплатно</p>
             </div>
 
-            <div className="space-y-4 md:space-y-8">
+            <div className="space-y-5 md:space-y-8">
+              {/* Phone */}
               <a
                 href="tel:+79087762775"
                 className={`group block transition-all duration-700 ${
@@ -68,110 +43,97 @@ export function ContactSection() {
                 </p>
               </a>
 
+              {/* Telegram */}
+              <a
+                href="https://t.me/+79087762775"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`group block transition-all duration-700 ${
+                  isVisible ? "translate-x-0 opacity-100" : "-translate-x-16 opacity-0"
+                }`}
+                style={{ transitionDelay: "300ms" }}
+              >
+                <div className="mb-1 flex items-center gap-2">
+                  <Icon name="Send" size={12} className="text-foreground/60" />
+                  <span className="font-mono text-xs text-foreground/60">Telegram</span>
+                </div>
+                <p className="text-base text-foreground transition-colors group-hover:text-foreground/70 md:text-2xl">
+                  Написать в Telegram
+                </p>
+              </a>
+
+              {/* Address */}
               <div
                 className={`transition-all duration-700 ${
                   isVisible ? "translate-y-0 opacity-100" : "translate-y-12 opacity-0"
                 }`}
-                style={{ transitionDelay: "350ms" }}
+                style={{ transitionDelay: "400ms" }}
               >
                 <div className="mb-1 flex items-center gap-2">
                   <Icon name="MapPin" size={12} className="text-foreground/60" />
                   <span className="font-mono text-xs text-foreground/60">Адрес</span>
                 </div>
-                <p className="text-base text-foreground md:text-2xl">Укажите ваш город и адрес</p>
+                <p className="text-base text-foreground md:text-xl">
+                  Усолье-Сибирское, ул. Республики 8В
+                </p>
+                <p className="font-mono text-xs text-foreground/50 mt-1">Автовокзал</p>
               </div>
 
-              <div
-                className={`flex gap-2 pt-2 transition-all duration-700 md:pt-4 ${
-                  isVisible ? "translate-x-0 opacity-100" : "-translate-x-8 opacity-0"
-                }`}
-                style={{ transitionDelay: "500ms" }}
-              >
-                {["Telegram", "VK", "WhatsApp"].map((social) => (
-                  <a
-                    key={social}
-                    href="#"
-                    className="border-b border-transparent font-mono text-xs text-foreground/60 transition-all hover:border-foreground/60 hover:text-foreground/90"
-                  >
-                    {social}
-                  </a>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Right side - Minimal form */}
-          <div className="flex flex-col justify-center">
-            <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
-              <div
-                className={`transition-all duration-700 ${
-                  isVisible ? "translate-x-0 opacity-100" : "translate-x-16 opacity-0"
-                }`}
-                style={{ transitionDelay: "200ms" }}
-              >
-                <label className="mb-1 block font-mono text-xs text-foreground/60 md:mb-2">Имя</label>
-                <input
-                  type="text"
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  required
-                  className="w-full border-b border-foreground/30 bg-transparent py-1.5 text-sm text-foreground placeholder:text-foreground/40 focus:border-foreground/50 focus:outline-none md:py-2 md:text-base"
-                  placeholder="Ваше имя"
-                />
-              </div>
-
-              <div
-                className={`transition-all duration-700 ${
-                  isVisible ? "translate-x-0 opacity-100" : "translate-x-16 opacity-0"
-                }`}
-                style={{ transitionDelay: "350ms" }}
-              >
-                <label className="mb-1 block font-mono text-xs text-foreground/60 md:mb-2">Email</label>
-                <input
-                  type="email"
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  required
-                  className="w-full border-b border-foreground/30 bg-transparent py-1.5 text-sm text-foreground placeholder:text-foreground/40 focus:border-foreground/50 focus:outline-none md:py-2 md:text-base"
-                  placeholder="your@email.com"
-                />
-              </div>
-
-              <div
-                className={`transition-all duration-700 ${
-                  isVisible ? "translate-x-0 opacity-100" : "translate-x-16 opacity-0"
-                }`}
-                style={{ transitionDelay: "500ms" }}
-              >
-                <label className="mb-1 block font-mono text-xs text-foreground/60 md:mb-2">Сообщение</label>
-                <textarea
-                  rows={3}
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  required
-                  className="w-full border-b border-foreground/30 bg-transparent py-1.5 text-sm text-foreground placeholder:text-foreground/40 focus:border-foreground/50 focus:outline-none md:py-2 md:text-base"
-                  placeholder="Что хотите сдать? Опишите кратко..."
-                />
-              </div>
-
+              {/* Hours */}
               <div
                 className={`transition-all duration-700 ${
                   isVisible ? "translate-y-0 opacity-100" : "translate-y-12 opacity-0"
                 }`}
-                style={{ transitionDelay: "650ms" }}
+                style={{ transitionDelay: "500ms" }}
               >
-                <MagneticButton
-                  variant="primary"
-                  size="lg"
-                  className="w-full disabled:opacity-50"
-                >
-                  {isSubmitting ? "Отправка..." : "Отправить"}
-                </MagneticButton>
-                {submitSuccess && (
-                  <p className="mt-3 text-center font-mono text-sm text-foreground/80">Сообщение отправлено!</p>
-                )}
+                <div className="mb-1 flex items-center gap-2">
+                  <Icon name="Clock" size={12} className="text-foreground/60" />
+                  <span className="font-mono text-xs text-foreground/60">Режим работы</span>
+                </div>
+                <p className="text-base text-foreground md:text-xl">Пн–Вс, 9:00 – 20:00</p>
+                <p className="font-mono text-xs text-foreground/50 mt-1">Без перерывов и выходных</p>
               </div>
-            </form>
+            </div>
+          </div>
+
+          {/* Right side - Info block */}
+          <div className="flex flex-col justify-center space-y-6 md:space-y-10">
+            {[
+              {
+                icon: "TrendingUp",
+                title: "Платим выше конкурентов",
+                desc: "Предложим цену выше — или объясним почему. Честно и открыто.",
+                delay: "200ms",
+              },
+              {
+                icon: "BadgeCheck",
+                title: "Цены по факту",
+                desc: "Оцениваем каждую позицию на месте. Никаких скрытых вычетов.",
+                delay: "350ms",
+              },
+              {
+                icon: "Zap",
+                title: "Расчёт сразу",
+                desc: "Деньги наличными или на карту — в момент сдачи.",
+                delay: "500ms",
+              },
+            ].map((item, i) => (
+              <div
+                key={i}
+                className={`flex items-start gap-4 transition-all duration-700 ${
+                  isVisible ? "translate-x-0 opacity-100" : "translate-x-16 opacity-0"
+                }`}
+                style={{ transitionDelay: item.delay }}
+              >
+                <div className="mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-foreground/20 bg-foreground/10">
+                  <Icon name={item.icon} size={14} className="text-foreground/80" />
+                </div>
+                <div>
+                  <p className="font-sans text-base font-medium text-foreground md:text-lg">{item.title}</p>
+                  <p className="font-mono text-xs text-foreground/60 mt-0.5">{item.desc}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
