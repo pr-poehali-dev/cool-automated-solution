@@ -271,9 +271,7 @@ export default function Index() {
               </span>
             </h1>
             <p className="mb-8 max-w-xl animate-in fade-in slide-in-from-bottom-4 text-lg leading-relaxed text-foreground/90 duration-1000 delay-200 md:text-xl">
-              <span className="text-pretty">
-                Принимаем радиодетали, серебро, ВК и ТК. Быстрая оценка, честная цена, расчёт на месте.
-              </span>
+              <span className="text-pretty">Принимаем радиодетали, серебро, ВК и ТК. микросхемы,реле,платы,транзисторы,конденсаторы,разъемы, Быстрая оценка, честная цена, расчёт на месте.</span>
             </p>
             <div className="flex animate-in fade-in slide-in-from-bottom-4 flex-col gap-4 duration-1000 delay-300 sm:flex-row sm:items-center">
               <MagneticButton
