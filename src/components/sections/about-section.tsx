@@ -14,7 +14,7 @@ export function AboutSection({ scrollToSection }: { scrollToSection?: (index: nu
           {/* Left side - Story */}
           <div>
             <div
-              className={`mb-6 transition-all duration-700 md:mb-12 ${
+              className={`mb-6 transition-all duration-700 md:mb-10 ${
                 isVisible ? "translate-y-0 opacity-100" : "-translate-y-12 opacity-0"
               }`}
             >
@@ -40,10 +40,39 @@ export function AboutSection({ scrollToSection }: { scrollToSection?: (index: nu
                 Работаем с частными лицами, предприятиями и складами. Большой объём — приедем сами.
               </p>
             </div>
+
+            <div
+              className={`mt-6 flex flex-wrap gap-3 transition-all duration-700 md:mt-10 md:gap-4 ${
+                isVisible ? "translate-y-0 opacity-100" : "translate-y-12 opacity-0"
+              }`}
+              style={{ transitionDelay: "750ms" }}
+            >
+              <MagneticButton size="lg" variant="primary" onClick={() => scrollToSection?.(4)}>
+                Узнать цену
+              </MagneticButton>
+              <MagneticButton size="lg" variant="secondary" onClick={() => scrollToSection?.(1)}>
+                Что принимаем
+              </MagneticButton>
+            </div>
           </div>
 
-          {/* Right side - Stats with creative layout */}
-          <div className="flex flex-col justify-center space-y-6 md:space-y-12">
+          {/* Right side - Image + Stats */}
+          <div className="flex flex-col justify-center gap-6 md:gap-8">
+            {/* Фото */}
+            <div
+              className={`overflow-hidden rounded-2xl transition-all duration-700 ${
+                isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-16"
+              }`}
+              style={{ transitionDelay: "150ms" }}
+            >
+              <img
+                src="https://cdn.poehali.dev/projects/39420f36-b403-4b48-85a2-f3ac8a201009/bucket/3282054c-208c-476a-aa67-8ec062111181.jpg"
+                alt="Скупаем радиоприборы СССР и радиодетали"
+                className="w-full h-44 object-cover md:h-52"
+              />
+            </div>
+
+            {/* Stats */}
             {[
               { value: "10+", label: "Лет", sublabel: "На рынке скупки", direction: "right" },
               { value: "500+", label: "Позиций", sublabel: "В прайс-листе", direction: "left" },
@@ -75,20 +104,6 @@ export function AboutSection({ scrollToSection }: { scrollToSection?: (index: nu
               )
             })}
           </div>
-        </div>
-
-        <div
-          className={`mt-8 flex flex-wrap gap-3 transition-all duration-700 md:mt-16 md:gap-4 ${
-            isVisible ? "translate-y-0 opacity-100" : "translate-y-12 opacity-0"
-          }`}
-          style={{ transitionDelay: "750ms" }}
-        >
-          <MagneticButton size="lg" variant="primary" onClick={() => scrollToSection?.(4)}>
-            Узнать цену
-          </MagneticButton>
-          <MagneticButton size="lg" variant="secondary" onClick={() => scrollToSection?.(1)}>
-            Что принимаем
-          </MagneticButton>
         </div>
       </div>
     </section>

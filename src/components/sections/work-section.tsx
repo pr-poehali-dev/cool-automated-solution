@@ -1,5 +1,40 @@
 import { useReveal } from "@/hooks/use-reveal"
 
+const items = [
+  {
+    number: "01",
+    title: "Радиодетали СССР",
+    category: "Микросхемы, транзисторы, конденсаторы, резисторы",
+    year: "СССР и импорт",
+    direction: "left",
+    image: "https://cdn.poehali.dev/projects/39420f36-b403-4b48-85a2-f3ac8a201009/bucket/ba7e7fca-6aff-483a-90c2-e2ad50bf0a32.png",
+  },
+  {
+    number: "02",
+    title: "Позолоченные детали",
+    category: "Транзисторы и микросхемы с золотым напылением",
+    year: "Любое состояние",
+    direction: "right",
+    image: "https://cdn.poehali.dev/projects/39420f36-b403-4b48-85a2-f3ac8a201009/bucket/7c235bf4-25aa-4f25-96da-699d8deeef56.png",
+  },
+  {
+    number: "03",
+    title: "Платы и приборы",
+    category: "Материнские платы, радиоприборы СССР",
+    year: "Оптом и в розницу",
+    direction: "left",
+    image: "https://cdn.poehali.dev/projects/39420f36-b403-4b48-85a2-f3ac8a201009/bucket/eeb2e732-ce0e-46f7-b928-d9b22ee2f1d1.png",
+  },
+  {
+    number: "04",
+    title: "Микросхемы оптом",
+    category: "Чипы, ИС, логика — любые партии",
+    year: "Дорого",
+    direction: "right",
+    image: "https://cdn.poehali.dev/projects/39420f36-b403-4b48-85a2-f3ac8a201009/bucket/60da53b2-51bb-4c32-89ce-8b25f89ba60d.png",
+  },
+]
+
 export function WorkSection() {
   const { ref, isVisible } = useReveal(0.3)
 
@@ -10,7 +45,7 @@ export function WorkSection() {
     >
       <div className="mx-auto w-full max-w-7xl">
         <div
-          className={`mb-12 transition-all duration-700 md:mb-16 ${
+          className={`mb-8 transition-all duration-700 md:mb-10 ${
             isVisible ? "translate-x-0 opacity-100" : "-translate-x-12 opacity-0"
           }`}
         >
@@ -20,31 +55,9 @@ export function WorkSection() {
           <p className="font-mono text-sm text-foreground/60 md:text-base">/ Всё, что у вас есть</p>
         </div>
 
-        <div className="space-y-6 md:space-y-8">
-          {[
-            {
-              number: "01",
-              title: "Радиодетали",
-              category: "Микросхемы, транзисторы, конденсаторы, резисторы",
-              year: "СССР и импорт",
-              direction: "left",
-            },
-            {
-              number: "02",
-              title: "Серебро",
-              category: "Контакты, реле, провода с серебряным покрытием",
-              year: "Любое состояние",
-              direction: "right",
-            },
-            {
-              number: "03",
-              title: "ВК и ТК",
-              category: "Военная и тепловизионная комплектация",
-              year: "Оптом и в розницу",
-              direction: "left",
-            },
-          ].map((project, i) => (
-            <ProjectCard key={i} project={project} index={i} isVisible={isVisible} />
+        <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
+          {items.map((item, i) => (
+            <PhotoCard key={i} item={item} index={i} isVisible={isVisible} />
           ))}
         </div>
       </div>
@@ -52,43 +65,41 @@ export function WorkSection() {
   )
 }
 
-function ProjectCard({
-  project,
+function PhotoCard({
+  item,
   index,
   isVisible,
 }: {
-  project: { number: string; title: string; category: string; year: string; direction: string }
+  item: typeof items[0]
   index: number
   isVisible: boolean
 }) {
   const getRevealClass = () => {
-    if (!isVisible) {
-      return project.direction === "left" ? "-translate-x-16 opacity-0" : "translate-x-16 opacity-0"
-    }
-    return "translate-x-0 opacity-100"
+    if (!isVisible) return "opacity-0 translate-y-10"
+    return "opacity-100 translate-y-0"
   }
 
   return (
     <div
-      className={`group flex items-center justify-between border-b border-foreground/10 py-6 transition-all duration-700 hover:border-foreground/20 md:py-8 ${getRevealClass()}`}
-      style={{
-        transitionDelay: `${index * 150}ms`,
-        marginLeft: index % 2 === 0 ? "0" : "auto",
-        maxWidth: index % 2 === 0 ? "85%" : "90%",
-      }}
+      className={`group relative overflow-hidden rounded-xl transition-all duration-700 ${getRevealClass()}`}
+      style={{ transitionDelay: `${index * 120}ms` }}
     >
-      <div className="flex items-baseline gap-4 md:gap-8">
-        <span className="font-mono text-sm text-foreground/30 transition-colors group-hover:text-foreground/50 md:text-base">
-          {project.number}
-        </span>
-        <div>
-          <h3 className="mb-1 font-sans text-2xl font-light text-foreground transition-transform duration-300 group-hover:translate-x-2 md:text-3xl lg:text-4xl">
-            {project.title}
-          </h3>
-          <p className="font-mono text-xs text-foreground/50 md:text-sm">{project.category}</p>
-        </div>
+      <div className="aspect-[3/4] w-full overflow-hidden">
+        <img
+          src={item.image}
+          alt={item.title}
+          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+        />
       </div>
-      <span className="font-mono text-xs text-foreground/30 md:text-sm">{project.year}</span>
+      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 p-3 md:p-4">
+        <span className="font-mono text-xs text-foreground/50">{item.number}</span>
+        <h3 className="font-sans text-sm font-medium text-white md:text-base">{item.title}</h3>
+        <p className="font-mono text-xs text-white/60 mt-0.5 leading-tight">{item.category}</p>
+        <span className="mt-1 inline-block rounded-full border border-white/20 bg-white/10 px-2 py-0.5 font-mono text-xs text-white/80 backdrop-blur-sm">
+          {item.year}
+        </span>
+      </div>
     </div>
   )
 }
